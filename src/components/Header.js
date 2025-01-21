@@ -6,7 +6,6 @@ const Header = () => {
   return (
     <div className="container">
       <img src={carMarket} alt="Car Market Logo" style={{ width: '100px', maxWidth: '500px', height: 'auto' }} />
-
     </div>
   )
 }
