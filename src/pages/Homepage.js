@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import {Link} from 'react-router-dom';
 
 const Homepage = () => {
   const [stores, setStores] = useState([]);
@@ -10,7 +10,7 @@ const Homepage = () => {
     // Fetch data from the backend
     const fetchStores = async () => {
       try {
-        const response = await fetch('http://localhost:5151/api/store');
+        const response = await fetch('http://localhost:5151/api/stores');
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -34,14 +34,15 @@ const Homepage = () => {
     return <p>Error: {error}</p>;
   }
 
-  console.log(stores)
+  // console.log(stores)
   return (
-    <div class="container mt-5">
-      <div class="stores">
+    <div className="container mt-5">
+      <div className="stores">
         {stores.map((store) => (
-          <div>
+          <div key={store.id}>
             {/* <strong>{store.name}</strong> */}
             <img src={store.imageUrl} alt={store.name} width={'200px'} height={'auto'} />
+            <Link to={`/stores/${store.id}`}>{store.name}</Link>
             <p>Address: {store.address} </p>
             <p>Phone Number: <a href={`tel:${store.phoneNumber}`}>{store.phoneNumber}</a></p>
           </div>
