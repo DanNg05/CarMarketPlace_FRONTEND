@@ -7,6 +7,8 @@ const Store = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [cars, setCars] = useState([]);
+
+
   useEffect(() => {
     // Fetch data from back-end "/api/stores/:id"
     const fetchStore = async () => {
@@ -18,7 +20,6 @@ const Store = () => {
         const data = await response.json();
         setStoreData(data);
         setCars(data?.cars);
-
       }
       catch (err) {
         setError(err.message);
@@ -39,9 +40,9 @@ const Store = () => {
   if (error) {
     return <p>Error: {error}</p>;
   }
-  console.log(storeData);
+  // console.log(storeData);
   return (
-    <div>
+    <div className='container'>
       {/* <h1>Store is here</h1> */}
       <p>{storeData.name}</p>
       {cars.map((car) => (
@@ -49,6 +50,8 @@ const Store = () => {
         <p>Model: {car.model}</p>
         <p>Odometer: {car.odometer}</p>
         <p>Price: {car.price}</p>
+        <img src={car.imageUrls[0]} alt={car.model} width={'550px'} height={'auto'} />
+        {/* {console.log(car.imageUrls[0])} */}
         </div>
       ))}
     </div>
