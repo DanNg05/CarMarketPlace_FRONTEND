@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const Store = () => {
   const { id } = useParams();
@@ -47,7 +47,7 @@ const Store = () => {
       <p>{storeData.name}</p>
       {cars.map((car) => (
         <div key={car.id}>
-        <p>Model: {car.model}</p>
+        <p>Model:<Link to={`/cars/${car.id}`}>{car.model}</Link></p>
         <p>Odometer: {car.odometer}</p>
         <p>Price: {car.price}</p>
         <img src={car.imageUrls[0]} alt={car.model} width={'550px'} height={'auto'} />
