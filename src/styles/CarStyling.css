@@ -25,3 +25,9 @@
   object-fit: cover;
   cursor: pointer;
 }
+
+
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}

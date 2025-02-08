@@ -3,12 +3,16 @@ import { useParams } from 'react-router-dom';
 import { Modal, Carousel } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import '../styles/CarStyling.css'
+import axios from 'axios';
 const Car = () => {
   const { id } = useParams();
   const [carData, setCarData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [show, setShow] = useState(false);
+  const [formData, setFormData] = useState({ UserEmail: "", Subject: "", Message: "" });
+  const [message, setMessage] = useState("");
+  const [emailLoading, setEmailLoading] = useState(false);
 
   useEffect(() => {
       // Fetch data from back-end "/api/cars/:id"
@@ -31,6 +35,23 @@ const Car = () => {
       fetchStore();
     }, [id]);
 
+    // Sending Email
+    const sendEmail = async (e) => {
+      e.preventDefault();
+      setEmailLoading(true);
+
+      try {
+        const response = await axios.post("http://localhost:5151/api/email/send", formData);
+        setMessage(response.data.message);
+        // Reset form fields after submission
+        setFormData({ UserEmail: "", Subject: "", Message: "" });
+      } catch (error) {
+        setMessage("Failed to send email.");
+        console.log(error)
+      }
+      setEmailLoading(false)
+    };
+
     if (loading) {
       return <p>Loading...</p>;
     }
@@ -41,6 +62,7 @@ const Car = () => {
 
   return (
     <div className='container'>
+      <div className='car-info'>
         <p>Model:{carData.model}</p>
         <p>Odometer: {carData.odometer}</p>
         <p>Price: {carData.price}</p>
@@ -61,7 +83,7 @@ const Car = () => {
               <img src={carData.imageUrls[2]} alt="Thumbnail 1" onClick={() => setShow(true)}/>
             </div>
           </div>
-    </div>
+        </div>
 
 
 
@@ -89,7 +111,33 @@ const Car = () => {
             </Modal.Body>
           </Modal>
         {/* {console.log(car.imageUrls[0])} */}
-        </div>
+      </div>
+
+      <div className='email-form'>
+      <form onSubmit={sendEmail}>
+        <input type="email" name="UserEmail"
+        placeholder="Your Email Address"
+        required
+        value={formData.UserEmail}
+        disabled={emailLoading}
+        onChange={(e) => setFormData({ ...formData, UserEmail: e.target.value })} />
+        <input type="text" name="Subject"
+        placeholder="Subject"
+        required
+        value={formData.Subject}
+        disabled={emailLoading}
+        onChange={(e) => setFormData({ ...formData, Subject: e.target.value })} />
+        <textarea name="Message"
+        placeholder="Message"
+        required
+        value={formData.Message}
+        disabled={emailLoading}
+        onChange={(e) => setFormData({ ...formData, Message: e.target.value })}></textarea>
+        <button type="submit" disabled={emailLoading}>{emailLoading ? "Submitting..." : "Submit Request" }</button>
+        <p>{message}</p>
+      </form>
+      </div>
+    </div>
   )
 }
 

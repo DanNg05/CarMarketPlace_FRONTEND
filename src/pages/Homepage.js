@@ -41,7 +41,10 @@ const Homepage = () => {
         {stores.map((store) => (
           <div key={store.id}>
             {/* <strong>{store.name}</strong> */}
-            <img src={store.imageUrl} alt={store.name} width={'200px'} height={'auto'} />
+            <Link to={`/stores/${store.id}`}>
+              <img src={store.imageUrl} alt={store.name} width={'200px'} height={'auto'} />
+            </Link>
+
             <Link to={`/stores/${store.id}`}>{store.name}</Link>
             <p>Address: {store.address} </p>
             <p>Phone Number: <a href={`tel:${store.phoneNumber}`}>{store.phoneNumber}</a></p>
