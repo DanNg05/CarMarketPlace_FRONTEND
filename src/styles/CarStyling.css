@@ -31,3 +31,26 @@ button:disabled {
   background: #ccc;
   cursor: not-allowed;
 }
+
+.car-infos {
+  display: flex;
+  justify-content: space-between;
+}
+
+.email-form {
+  padding: 20px;
+  border: 2px solid grey;
+  border-radius: 15px;
+}
+
+.email-div, .subject-div, .message-div{
+  display: grid;
+  grid-template-columns: 1fr;
+}
+form {
+  width: 100%;
+}
+
+button {
+  margin-top: 10px;
+}

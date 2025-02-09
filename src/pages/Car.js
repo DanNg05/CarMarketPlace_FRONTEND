@@ -4,6 +4,11 @@ import { Modal, Carousel } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import '../styles/CarStyling.css'
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCar, faGaugeSimpleHigh, faMoneyBill } from "@fortawesome/free-solid-svg-icons";
+import Button from 'react-bootstrap/Button';
+
+
 const Car = () => {
   const { id } = useParams();
   const [carData, setCarData] = useState(null);
@@ -62,10 +67,7 @@ const Car = () => {
 
   return (
     <div className='container'>
-      <div className='car-info'>
-        <p>Model:{carData.model}</p>
-        <p>Odometer: {carData.odometer}</p>
-        <p>Price: {carData.price}</p>
+      <div className='car-info mt-3'>
 
         {/* Test Image Gallery */}
         <div className="image-gallery">
@@ -112,30 +114,52 @@ const Car = () => {
           </Modal>
         {/* {console.log(car.imageUrls[0])} */}
       </div>
-
+      <div className='car-infos'>
+        <p className='car-info'><FontAwesomeIcon icon={faCar} /> {carData.model}</p>
+        <p className='car-info'><FontAwesomeIcon icon={faMoneyBill} /> {carData.price} AUD</p>
+        <p className='car-info'><FontAwesomeIcon icon={faGaugeSimpleHigh} /> {carData.odometer} km</p>
+      </div>
       <div className='email-form'>
-      <form onSubmit={sendEmail}>
-        <input type="email" name="UserEmail"
-        placeholder="Your Email Address"
-        required
-        value={formData.UserEmail}
-        disabled={emailLoading}
-        onChange={(e) => setFormData({ ...formData, UserEmail: e.target.value })} />
-        <input type="text" name="Subject"
-        placeholder="Subject"
-        required
-        value={formData.Subject}
-        disabled={emailLoading}
-        onChange={(e) => setFormData({ ...formData, Subject: e.target.value })} />
-        <textarea name="Message"
-        placeholder="Message"
-        required
-        value={formData.Message}
-        disabled={emailLoading}
-        onChange={(e) => setFormData({ ...formData, Message: e.target.value })}></textarea>
-        <button type="submit" disabled={emailLoading}>{emailLoading ? "Submitting..." : "Submit Request" }</button>
-        <p>{message}</p>
-      </form>
+        <h3>Get in touch with seller</h3>
+        <form onSubmit={sendEmail}>
+          <div className='email-div'>
+              <label htmlFor="UserEmail">Your Email Address:</label>
+              <input type="email" name="UserEmail"
+              placeholder="Your Email Address"
+              id='form-email'
+              required
+              value={formData.UserEmail}
+              disabled={emailLoading}
+              onChange={(e) => setFormData({ ...formData, UserEmail: e.target.value })} />
+          </div>
+
+          <div className='subject-div'>
+            <label htmlFor="Subject">Subject:</label>
+            <input type="text" name="Subject"
+            placeholder="Subject"
+            id='form-subject'
+            required
+            value={formData.Subject}
+            disabled={emailLoading}
+            onChange={(e) => setFormData({ ...formData, Subject: e.target.value })} />
+          </div>
+
+
+          <div className='message-div'>
+            <label htmlFor="UserEmail">Your Message:</label>
+            <textarea name="Message"
+            id='form-message'
+            placeholder="Message"
+            required
+            value={formData.Message}
+            disabled={emailLoading}
+            onChange={(e) => setFormData({ ...formData, Message: e.target.value })}></textarea>
+          </div>
+          <div className='d-flex justify-content-center'>
+            <Button variant="primary" type="submit" disabled={emailLoading}>{emailLoading ? "Submitting..." : "Submit Request" }</Button>
+          </div>
+          <p>{message}</p>
+        </form>
       </div>
     </div>
   )

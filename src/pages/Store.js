@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import '../styles/Store.css'
 
 const Store = () => {
   const { id } = useParams();
-  const [storeData, setStoreData] = useState(null);
+  // const [storeData, setStoreData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [cars, setCars] = useState([]);
-
+  const goToCar = useNavigate();
 
   useEffect(() => {
     // Fetch data from back-end "/api/stores/:id"
@@ -18,7 +19,7 @@ const Store = () => {
           throw new Error(`Cannot fetch! Status: ${response.status}`);
         }
         const data = await response.json();
-        setStoreData(data);
+        // setStoreData(data);
         setCars(data?.cars);
       }
       catch (err) {
@@ -42,16 +43,16 @@ const Store = () => {
   }
   // console.log(storeData);
   return (
-    <div className='container'>
-      {/* <h1>Store is here</h1> */}
-      <p>{storeData.name}</p>
+    <div className='container cars-grid'>
+      {/* <p>{storeData.name}</p> */}
       {cars.map((car) => (
-        <div key={car.id}>
-        <p>Model:<Link to={`/cars/${car.id}`}>{car.model}</Link></p>
-        <p>Odometer: {car.odometer}</p>
-        <p>Price: {car.price}</p>
-        <img src={car.imageUrls[0]} alt={car.model} width={'550px'} height={'auto'} />
-        {/* {console.log(car.imageUrls[0])} */}
+        <div key={car.id} className='car' onClick={() => goToCar(`/cars/${car.id}`)}>
+        <img
+        className='car-image'
+        src={car.imageUrls[0]} alt={car.model} width={'550px'} height={'auto'} />
+        <p className='car-info'>Model: {car.model}</p>
+        <p className='car-info'>Odometer: {car.odometer} km</p>
+        <p className='car-info'>Price: {car.price} AUD</p>
         </div>
       ))}
     </div>

@@ -1,0 +1,27 @@
+.stores {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 10px;
+}
+
+.store {
+  text-align: center;
+}
+
+.welcome {
+  background-image: url('../photos/CarDeal.jpg');
+  background-position: center;
+  background-size: 100% auto;
+  height: 1000px;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#welcome-p {
+  color: yellow;
+  font-size: 80px;
+  font-family: 'Courier New', Courier, monospace;
+  text-shadow: 5px 5px 5px black;
+}

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Link} from 'react-router-dom';
+import '../styles/HomePage.css';
+// import CarDeal from '../photos/CarDeal.jpg';
 
 const Homepage = () => {
   const [stores, setStores] = useState([]);
@@ -36,16 +38,20 @@ const Homepage = () => {
 
   // console.log(stores)
   return (
-    <div className="container mt-5">
+    <div className="container">
+      <div className='welcome'>
+        <p id='welcome-p'>Welcome to Car Marketplace</p>
+      </div>
       <div className="stores">
         {stores.map((store) => (
-          <div key={store.id}>
+          <div key={store.id} className='store'>
             {/* <strong>{store.name}</strong> */}
-            <Link to={`/stores/${store.id}`}>
-              <img src={store.imageUrl} alt={store.name} width={'200px'} height={'auto'} />
-            </Link>
+            <div className='store-image'>
+              <Link to={`/stores/${store.id}`}>
+                <img src={store.imageUrl} alt={store.name} width={'200px'} height={'auto'} />
+              </Link>
+            </div>
 
-            <Link to={`/stores/${store.id}`}>{store.name}</Link>
             <p>Address: {store.address} </p>
             <p>Phone Number: <a href={`tel:${store.phoneNumber}`}>{store.phoneNumber}</a></p>
           </div>

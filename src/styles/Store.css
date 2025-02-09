@@ -1,0 +1,22 @@
+.cars-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.car {
+  border: 2px solid rgba(128, 128, 128, 0.23);
+  border-radius: 10px;
+  width: 553px;
+  cursor: pointer;
+}
+
+.car-image {
+  border-radius: 10px 10px 0 0;
+}
+
+.car-info {
+  font-size: 20px;
+  margin-left: 10px;
+}
